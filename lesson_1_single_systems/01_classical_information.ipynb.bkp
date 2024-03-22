@@ -4,6 +4,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
+    "Continue at:\n",
+    "https://learning.quantum.ibm.com/course/basics-of-quantum-information/single-systems#probabilistic-operations-and-stochastic-matrices"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
     "IBM Quantum Learning\\\n",
     "Basics of quantum information\\\n",
     "[Single systems](https://learning.quantum.ibm.com/course/basics-of-quantum-information/single-systems)\n"
@@ -11,12 +19,23 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [],
    "source": [
     "import numpy as np\n",
     "import math"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "List of symbols:\n",
+    "⟩\n",
+    "⟨\n",
+    "∈\n",
+    "Σ "
    ]
   },
   {
@@ -147,7 +166,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [
     {
@@ -236,7 +255,77 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "A convenient way to represent matrices..."
+    "We denote by ⟨a∣ the *row* vector having a 1 in the entry corresponding to *a* and zero for all other entries, for each *a* ∈ Σ. This vector is read as \"bra *a*\"."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "⟨0| = [[1 0]] and ⟨1| = [[0 1]]\n",
+      "\n",
+      "|0⟩⟨1| = \n",
+      "[[0 1]\n",
+      " [0 0]].\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "# For example, if Σ = {0, 1}, then\n",
+    "bra_0 = np.array([[1, 0]])\n",
+    "bra_1 = np.array([[0, 1]])\n",
+    "print(f\"⟨0| = {bra_0} and ⟨1| = {bra_1}\\n\")\n",
+    "\n",
+    "# Matrix multiplication of |0⟩⟨1|\n",
+    "ket_0 = np.array([[1],\n",
+    "\t\t\t\t  [0]])\n",
+    "ket_0xbra_1 = np.dot(ket_0, bra_1)\n",
+    "print(f\"|0⟩⟨1| = \\n{ket_0xbra_1}.\\n\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We may express the matrix *M* corresponding to the function *f* as\n",
+    "\n",
+    "$ M = \\sum_{a ∈ Σ}|f(a)\\rangle\\langle a| $\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "M3 = \n",
+      "[[1 0]\n",
+      " [0 1]].\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Find the NOT function matrix M3\n",
+    "# f3(0) = 1 and f3(1) = 0\n",
+    "f3_bra_0 = np.array([[1],\n",
+    "\t\t\t\t\t [0]])\n",
+    "f3_bra_1 = np.array([[0],\n",
+    "\t\t\t\t\t [1]])\n",
+    "bra_0 = np.array([[1, 0]])\n",
+    "bra_1 = np.array([[0, 1]])\n",
+    "m3 = np.dot(f3_bra_0, bra_0) + np.dot(f3_bra_1, bra_1)\n",
+    "print(f\"M3 = \\n{m3}.\\n\")"
    ]
   },
   {
@@ -273,7 +362,7 @@
     }
    ],
    "source": [
-    "# |a><b|; <a||b>\n",
+    "# |a><b|; <a|b>\n",
     "\n",
     "bra_0 = [[1, 0]]\n",
     "\n",
@@ -390,6 +479,13 @@
     "print(f\"{Mb}\\n\")\n",
     "\n",
     "# M∣b⟩=(∑∣f(a)⟩⟨a∣)∣b⟩ = ∑∣f(a)⟩⟨a∣b⟩ = ∣f(b)⟩"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "At this point the names \"bra\" and \"ket\" may be evident: putting a \"bra\" ⟨a| together with a \"ket\" |b⟩ yields a \"bracket\" ⟨a|b⟩. This notation and terminology is due to Paul Dirac, and for this reason is known as the \"Dirac notation\". "
    ]
   },
   {
